@@ -175,5 +175,6 @@ def devuelve_archivos_csv_coefs_SIN_transf_tipo(vector_atomos,nombres,tipo,grupo
       df = pd.concat(all_molecules, axis=1)  # Concatenate all Series into a DataFrame
       df.to_csv(f"coefs_SIN_transf_{nombres[i]}_{j}_pormlc.csv")
 
-main()
+if __name__ == "__main__":
+  main()
 
