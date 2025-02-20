@@ -4,11 +4,10 @@ import pandas as pd
 from numpy import linalg as LA
 
 def main():
-  ds = h5py.File("diatomics-exc.h5")
-  g002 = ds["002"]
+  ds = h5py.File("diatomics-exc.h5") #The dataset is organized in groups by number of atoms in the molecule. In this case there is only one group because all molecules are diatomic.
+  g002 = ds["002"] #The key passed to ds allows to access the group info
   coeficientes =g002["coefficients"]
   especies = g002["species"]
-  coordenadas = g002["coordinates"]
   vector_atomos = [[1,1],[9,9],[17,17],[1,9],[1,17]] #Defino variables que voy a necesitar para escribir los archivos .csv
   nombres = ["H2","F2","Cl2","HF","HCl"]
   tipos = ["s","p","d","pd"]
@@ -49,7 +48,7 @@ def devuelve_array_coeficientes(nros_atomicos, tipo,grupo):
 
 def ordena_coeficientes_para_transformar(tipo, array_coeficientes_desordenado):
     if tipo == "p":
-        coeficientes_reordenados = array_coeficientes_desordenado.reshape((-1, 2, 4, 3))
+        coeficientes_reordenados = array_coeficientes_desordenado.reshape((-1, 2, 4, 3)) #The number of the second dimension is the number of atoms in the molecule. As example, if the molecule is MeOH, this number is 6.
     elif tipo == "d":
         coeficientes_reshepeados = array_coeficientes_desordenado.reshape((-1, 2, 4, 6))
 
@@ -98,6 +97,7 @@ def calculate_norm_and_angles(ordered_array):
   return norm_and_angles #Returns a 1D array with the norms and the angles
 
 #Ahora calculamos los coeficientes transformados
+
 def calcula_coefs_transformados(array_coeficientes_reordenados):
 
     _,n_atoms,_,_ = array_coeficientes_reordenados.shape
